@@ -19,15 +19,14 @@ class BrokerController extends Controller {
 
     public function sendRequestBlynk()
     {
-        echo env('BLYNK_TOKEN');
-        $this->url = "{$this->url}/{$this->token}/get/V1";
+        $url = "{$this->url}/{$this->token}/get/V1";
         $stream_opts = [
             "ssl" => [
                 "verify_peer" => false,
                 "verify_peer_home" => false
             ] 
         ];
-        $request = file_get_contents($this->url, false, stream_context_create($stream_opts));
+        $request = file_get_contents($url, false, stream_context_create($stream_opts));
         return $this->response = $request;
     }
 
@@ -47,6 +46,18 @@ class BrokerController extends Controller {
         echo $response;
         curl_close($curl);
         
+    }
+
+    public function sendLed($value) {
+        $url = "{$this->url}/{$this->token}/update/V2?value={$value}";
+        $stream_opts = [
+            "ssl" => [
+                "verify_peer" => false,
+                "verify_peer_home" => false
+            ] 
+        ];
+        $request = file_get_contents($url, false, stream_context_create($stream_opts));
+        return $this->response = $request;
     }
 
 }

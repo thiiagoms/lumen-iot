@@ -11,6 +11,13 @@ while (true) {
 
     $broker = new BrokerController();
     $response = $broker->sendRequestBlynk();
-    $date = date("d-m-y H:i:s", time());
-    #$broker->sendToAPI($date, $response);
+    $date = date("Y-m-d H:i:s", time());
+
+    if ($response == '["1"]') {
+        $broker->sendLed(255);
+    } else {
+        $broker->sendLed(0);
+    }
+    echo $date . " - " . $response . "\n";
+    $broker->sendToAPI($date, $response);
 }

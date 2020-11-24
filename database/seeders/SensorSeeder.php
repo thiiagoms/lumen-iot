@@ -19,10 +19,12 @@ class SensorSeeder extends Seeder
         $presence = '["1"]';
         $fault = '["0"]';
         $sensor_presence = [$fault, $presence];
+        
+        date_default_timezone_set("America/Sao_Paulo");
 
         for ($count = 0; $count <= 500; $count++):
             Sensor::create([
-                "date_sensor" => date("d/m/y H:i:s", time()),
+                "date_sensor" => date("Y-m-d H:i:s", time()),
                 "presence" => array_rand($sensor_presence)
             ]);
         endfor;
